@@ -1,0 +1,44 @@
+config BR2_PACKAGE_LXCDOCKER
+	bool "lxcdocker"
+	select BR2_PACKAGE_SQLITE
+	select BR2_PACKAGE_UTIL_LINUX
+	select BR2_PACKAGE_UTIL_LINUX_BINARIES
+	select BR2_PACKAGE_UTIL_LINUX_PIVOT_ROOT
+	select BR2_PACKAGE_UTIL_LINUX_MOUNTPOINT
+	select BR2_PACKAGE_UTIL_LINUX_MOUNT
+	help
+		Application container engine.
+
+		https://github.com/docker/docker
+
+if BR2_PACKAGE_LXCDOCKER
+
+config BR2_PACKAGE_LXCDOCKER_DAEMON
+  bool "docker build system daemon"
+  default y
+
+config BR2_PACKAGE_LXCDOCKER_EXPERIMENTAL
+  bool "docker build experimental features"
+
+if BR2_PACKAGE_LXCDOCKER_DAEMON
+
+config BR2_PACKAGE_LXCDOCKER_DRIVER_BTRFS
+  bool "docker btrfs filesystem driver"
+  default y
+	select BR2_PACKAGE_BTRFS_PROGS
+
+config BR2_PACKAGE_LXCDOCKER_DRIVER_AUFS
+  bool "docker aufs filesystem driver"
+  select BR2_PACKAGE_AUFS_UTIL
+
+config BR2_PACKAGE_LXCDOCKER_DRIVER_DEVICEMAPPER
+  bool "docker devicemapper filesystem driver"
+	select BR2_PACKAGE_LVM2
+
+config BR2_PACKAGE_LXCDOCKER_DRIVER_VFS
+  bool "docker vfs filesystem driver"
+	select BR2_PACKAGE_GVFS
+
+endif
+
+endif

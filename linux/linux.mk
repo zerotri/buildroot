@@ -182,7 +182,12 @@ define LINUX_APPLY_LOCAL_PATCHES
 	done
 endef
 
+define LINUX_COPY_REG_DB_TXT
+        cp linux/db.txt $(@D)/net/wireless
+endef
+
 LINUX_POST_PATCH_HOOKS += LINUX_APPLY_LOCAL_PATCHES
+LINUX_POST_PATCH_HOOKS += LINUX_COPY_REG_DB_TXT
 
 # Older linux kernels use deprecated perl constructs in timeconst.pl
 # that were removed for perl 5.22+ so it breaks on newer distributions
