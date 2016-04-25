@@ -16,18 +16,23 @@
 # Startup the system
 null::sysinit:/bin/mount -t proc proc /proc
 null::sysinit:/bin/mount -t sysfs sysfs /sys
+null::sysinit:/bin/mount -t cgroup none /cgroups
 null::sysinit:/bin/mount -o remount,rw /
 null::sysinit:/bin/mkdir -p /dev/pts
 null::sysinit:/bin/mkdir -p /dev/shm
 null::sysinit:/bin/mount -a
 null::sysinit:/bin/hostname -F /etc/hostname
+
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS
 
 # Put a getty on the serial port
 ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100 # GENERIC_SERIAL
+ttyS0::respawn:/usr/bin/docker daemon
 # ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100 # gadget serial
 tty0::respawn:/sbin/getty -L tty0 115200 vt100 # framebuffer console
+
+
 
 # Stuff to do for the 3-finger salute
 ::ctrlaltdel:/sbin/reboot
