@@ -11,3 +11,5 @@ if [ ! -d "${TARGET_DIR}/cgroups" ]; then
 fi
 
 cat "${TARGET_DIR}/../images/zImage" "${TARGET_DIR}/../images/sun5i-r8-chip.dtb" > "${TARGET_DIR}/../images/zImage_with_dtb"
+
+rm -rf "${TARGET_DIR}/etc/X11"
